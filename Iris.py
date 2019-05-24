@@ -4,16 +4,17 @@ import random
 import math
 import operator
 
-def load_data():
-	split  = 0.7
+def load_data(split):
 	test_set, training_set = [],[]
 	with open('iris.data') as data_file:
 		lines = csv.reader(data_file)
 		data = list(lines)
+		threshold = int((split/100) * len(data))
+		
 		for i in range(len(data) - 1):
 			for j in range(4):
 				data[i][j] = float(data[i][j])
-			if random.random() < split:
+			if i < threshold:
 				training_set.append(data[i])
 			else:
 				test_set.append(data[i])
@@ -57,18 +58,31 @@ def get_accuracy(test_set):
 	correct = 0
 	predictions = []
 	for i in range(len(test_set)):
-		neighbours = get_k_neighbors(training_set, test_set[i], 10)
+		neighbours = get_k_neighbors(training_set, test_set[i], 3)
 		result = getResponse(neighbours)
 		if test_set[i][-1] == result:
 			correct += 1
 	return (correct/float(len(test_set))) * 100
 
 
-training_set, test_set = load_data()
-neighbours = get_k_neighbors(training_set, [1,2,3,0], 10)
-print("Result: "+ getResponse(neighbours))
-accuracy = get_accuracy(test_set)
-print("Accuracy: "+repr(accuracy)+"% Training: "+repr(len(training_set))+" Test: "+repr(len(test_set)))
+lines = []
+lines.append(['Accuracy', 'Training values', 'Test values', 'Training percentage'])
+for i in range(98):
+	split = i + 2
+	training_set, test_set = load_data(split)
+	neighbours = get_k_neighbors(training_set, [1,2,3,0], 3)
+	print("Result: "+ getResponse(neighbours))
+	accuracy = get_accuracy(test_set)
+	row = []
+	row.append(round(accuracy,2))
+	row.append(len(training_set)) 
+	row.append(len(test_set)) 
+	row.append(split)
+	lines.append(row)
+	print("Accuracy: "+repr(accuracy)+"% Training: "+repr(len(training_set))+" Test: "+repr(len(test_set))+" Split: "+repr(split))
+with open('split_dist.csv','w') as wF:
+	writer = csv.writer(wF)
+	writer.writerows(lines)
 
 
 
