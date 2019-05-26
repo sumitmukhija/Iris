@@ -5,6 +5,10 @@ An implementation of classification algorithms on Iris data set. The Iris data s
 1. K nearest neighbours
 2. Decision Tree
 
+<br>
+<img src ='images/ca.png' width = 500 height = 326/>
+<br>
+
 ### Accuracy vs Train-Test split:
 
 ### Decision Tree
