@@ -27,6 +27,7 @@ def execute_classifier(label_test, label_train, features_test, features_train, t
 	clf = RandomForestClassifier(n_estimators = 10)
 	clf.fit(features_train,  np.ravel(label_train))
 	predict_sample(clf)
+	print(clf.predict_proba(features_test)[0:10])
 	print("Accuracy: "+repr(round(clf.score(features_test, label_test) * 100, 2)) + "% Test size: "+repr(round(test_size * 100, 2))+"%")
 
 def predict_sample(rf):
