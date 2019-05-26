@@ -4,6 +4,7 @@ An implementation of classification algorithms on Iris data set. The Iris data s
 ### Algorithms used:
 1. K nearest neighbours
 2. Decision Tree
+3. Random Forest
 
 <br>
 <img src ='images/ca.png' width = 500 height = 326/>
