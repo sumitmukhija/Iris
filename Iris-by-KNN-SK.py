@@ -22,10 +22,12 @@ def create_test_and_train_set(features, label, test_size = 0.33):
 	execute_classifier(label_test, label_train, features_test, features_train, test_size)
 
 def execute_classifier(label_test, label_train, features_test, features_train, test_size):
-	knn = KNeighborsClassifier(n_neighbors=5)
+	knn = KNeighborsClassifier(n_neighbors=3)
 	knn.fit(features_train,  np.ravel(label_train))
 	predict_sample(knn)
-	print("Accuracy: "+repr(knn.score(features_test, label_test) * 100) + "%")
+	print("Accuracy: "+repr(round(knn.score(features_test, label_test) * 100, 2)) + "% Test size: "+repr(round(test_size * 100, 2))+"%")
+	# with open('knn-analysis.csv', 'a') as f:
+	# 	f.write(repr(round(test_size * 100, 2))+","+repr(round(knn.score(features_test, label_test) * 100, 2))+"\n")
 
 def predict_sample(knn):
 	prediction = knn.predict([[1.0,3.2,31,0]])
@@ -34,3 +36,7 @@ def predict_sample(knn):
 
 features, label = segregate_data(load_data())
 create_test_and_train_set(features, label)
+
+#Checking for accuracy based on train-test split
+# for i in range(95):
+# 	create_test_and_train_set(features, label, (i+3)/100)

@@ -31,8 +31,8 @@ def execute_classifier(label_test, label_train, features_test, features_train, t
 def compute_accuracy(label_test, test_prediction, test_size):
 	accuracy = accuracy_score(label_test, test_prediction)
 	print("Accuracy: "+repr(round(accuracy * 100, 2))+r"% Testing data: "+repr(round(test_size * 100,2))+r"% ")
-	with open('analysis.csv', 'a') as f:
-		f.write(repr(round(test_size * 100,2))+","+repr(round(accuracy * 100, 2))+"\n")
+	# with open('DT-analysis.csv', 'a') as f:
+	# 	f.write(repr(round(test_size * 100,2))+","+repr(round(accuracy * 100, 2))+"\n")
 	
 #Prediction:
 create_test_and_train_set(segregate_data(load_data())[0], segregate_data(load_data())[1])
